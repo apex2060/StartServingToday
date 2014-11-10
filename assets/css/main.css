@@ -1,0 +1,99 @@
+/*CUSTOM*/
+html,body{
+	height: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+body{
+	background-image: url('/assets/img/background/safari.jpg');
+	background-size: cover;
+	background-attachment: fixed;
+}
+header{
+	position: fixed;
+	width: 100%;
+	z-index: 1000;
+}
+section{
+	padding: 100px 0 100px 0;
+}
+a{
+	cursor: pointer;
+}
+h1,h2,h3{
+	text-align: center;
+}
+
+
+
+/* Main */
+#alerts .alert{
+	box-shadow: -5px -5px 5px #000;
+}
+.page .well{
+	box-shadow: 5px 5px 5px #333;
+}
+.page .well>h3{
+	height: 2em;
+}
+.page>h1{
+	text-align: left;
+	width: 400px;
+	margin: 50px 0px;
+	padding: 0px 0px 5px 5px;
+	border-top: 3px solid #FFF;
+	border-left: 3px solid;
+	font-size: 34px;
+	color: #fff;
+}
+
+
+/*CSS Overrides*/
+.modal-body>img{
+	max-width: 100%;
+}
+.fit{
+	display: block;
+	margin: 0px auto;
+	max-width: 100%;
+}
+#map-canvas{
+	width: 100%;
+	height: 500px;
+}
+
+.tr, .br, .bl, .tl{
+	position: absolute;
+	padding: 5px;
+	z-index: 999;
+}
+.tr, .tl{
+	top: 0px;
+}
+.br, .bl{
+	bottom: 0px;
+}
+.tl, .bl{
+	left: 0px;
+}
+.tr, .br{
+	right: 0px;
+}
+
+.point25{
+	width: 20%;
+}
+
+
+
+
+
+
+
+/* RESPONSIVE */
+/* Small devices (tablets, 768px and down) */
+@media (max-width: 768px) {
+	.point25{
+		width: 100%;
+	}
+}

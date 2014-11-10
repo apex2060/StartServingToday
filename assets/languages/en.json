@@ -1,0 +1,14 @@
+{
+	"SITE":{
+		"TITLE":"Start Serving",
+		"NAV":{
+			"HOME":"Home",
+			"FEATURED": "Featured",
+			"GET_STARTED": "Get Started",
+			"ABOUT": "About Us"
+		},
+		"LOGIN":"Login",
+		"SIGNUP":"Signup",
+		"COPYRIGHT":"2014 Synergize"
+	}
+}
