@@ -63,7 +63,44 @@ app.factory('userService', function ($rootScope, $http, $q, config) {
 
 
 
+app.factory('projectService', function ($rootScope, $http, $q, config) {
+	var projectList = [
+		{
+			title: "Help build a well in Africa.",
+			sponsor: "Power To Become",
+			src: "/assets/img/featured/wells.jpg",
+			objectId: "8fewa2"
+		},
+		{
+			title: "Helping Hands",
+			sponsor: "LDS",
+			src: "https://www.lds.org/bc/content/ldsorg/content/images/hs_whatchurchdoing_helpinghands.jpg",
+			objectId: "8few2a"
+		},
+		{
+			title: "Share your story with the world",
+			sponsor: "You",
+			src: "/assets/img/featured/helpers.jpg",
+			objectId: "82fewa"
+		},
+	]
 
+	var projectService = {
+		list:function(){
+			var deferred = $q.defer();
+			deferred.resolve(projectList);
+			return deferred.promise;
+		},
+		get:function(objectId){
+			var deferred = $q.defer();
+			for(var i=0; i<projectList.length; i++)
+				if(projectList[i].objectId == objectId)
+					deferred.resolve(projectList[i]);
+			return  deferred.promise;
+		}
+	}
+	return projectService;
+})
 
 
 // app.factory('directoryService', function ($rootScope, $http, $q, config, userService) {

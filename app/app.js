@@ -32,7 +32,18 @@ app.config(function($routeProvider,$translateProvider,$controllerProvider) {
 		resolve: {
 			load: ['$q', '$rootScope', '$location', function ($q, $rootScope, $location) {
 				var pieces = $location.path().split('/');
-				return requires($q, null, pieces[1], null)
+				return requires($q, null, pieces[2], null)
+			}]
+		}
+	})
+	.when('/main/:view/:id', {
+		reloadOnSearch: false,
+		templateUrl: 'views/main.html',
+		controller: 'MainCtrl',
+		resolve: {
+			load: ['$q', '$rootScope', '$location', function ($q, $rootScope, $location) {
+				var pieces = $location.path().split('/');
+				return requires($q, null, pieces[2], pieces[3])
 			}]
 		}
 	})

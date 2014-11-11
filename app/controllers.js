@@ -1,4 +1,4 @@
-var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routeParams, config, userService){
+var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routeParams, config, userService, projectService){
 	$rootScope.rp = $routeParams;
 	$rootScope.config = config;
 
@@ -15,30 +15,13 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 		init:function(){
 			if(!$rootScope.temp){
 				$rootScope.alerts = [];
-				$rootScope.temp = {};
-				$rootScope.page = {
-					featured: [
-						{
-							title: "Power To Become",
-							description: "Help build a well in Africa.",
-							url: "/assets/img/featured/wells.jpg"
-						},
-						{
-							title: "LDS",
-							description: "Helping Hands",
-							url: "https://www.lds.org/bc/content/ldsorg/content/images/hs_whatchurchdoing_helpinghands.jpg"
-						},
-						{
-							title: "You",
-							description: "Share your story with the world",
-							url: "/assets/img/featured/helpers.jpg"
-						},
-					]
-				}
+				$rootScope.temp = {
+					volunteer: {},
+				};
+				rootTools.projects.init();
+				
 				userService.user().then(function(){
 					//Do things than need to be done once the user is authenticated.
-					// family.init();
-					// tag.init();
 				});
 				$scope.$on('$viewContentLoaded', function(event) {
 					// ga('send', 'pageview', $location.path());
@@ -58,6 +41,18 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 				var alertIndex = $rootScope.alerts.indexOf(alert);
 				if(alertIndex != -1)
 					$rootScope.alerts.splice(alertIndex, 1);
+			}
+		},
+		projects:{
+			init:function(){
+				projectService.list().then(function(projectList){
+					$rootScope.projects = projectList;
+				})
+			},
+			load:function(){
+				projectService.get($routeParams.id).then(function(project){
+					$rootScope.temp.volunteer.project = project;
+				})
 			}
 		}
 	}

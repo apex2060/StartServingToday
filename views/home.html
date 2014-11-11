@@ -9,12 +9,14 @@
 	</div>
 	<h1>The importance of one... <br>The power of many!</h1>
 	<div class="row">
-		<div class="col-md-4" ng-repeat="feature in page.featured">
-			<div class="well">
-				<h3>{{feature.title}}</h3>
-				<img ng-src="{{feature.url}}" class="img-responsive thumbnail" alt="Image depicting: {{feature.description}}">
-				<p>{{feature.description}}</p>
-			</div>
+		<div class="col-md-4" ng-repeat="project in projects">
+			<a href="#/main/signup/{{project.objectId}}">
+				<div class="well">
+					<h3>{{project.title}}</h3>
+					<img ng-src="{{project.src}}" class="img-responsive thumbnail" alt="Image depicting: {{project.description}}">
+					<p>{{project.sponsor}}</p>
+				</div>
+			</a>
 		</div>
 	</div>
 </div>
