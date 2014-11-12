@@ -5,6 +5,7 @@ app.factory('config', function ($rootScope, $http) {
 	 	parseJsKey: 		'z2Pb9wrwQN0uXHbWy242snEJfzAzA6EoGvdDr9t0',
 	 	parseRestApiKey: 	'tDqdS2lxMe48F2TXzCMoemAgJf1IO4ySSXCtfmbo',
 	 	googleApiKey: 		'AIzaSyC0WyOGqP4zLaN9AgKjZHqiWgtmFBbjw7Y',
+	 	roles: 				['Admin','Moderator','Volunteer','ValidUser','BlockedUser']
 	};
 
 	Parse.initialize(config.parseAppId, config.parseJsKey);
@@ -14,3 +15,13 @@ app.factory('config', function ($rootScope, $http) {
 
 	return config;
 });
+
+/*
+
+Admin:			Manage roles, full privledges of all else
+Moderator: 		Approve/Remove any content
+Volunteer:		Access cetain parts of the website - 
+ValidUser:		Approved
+BlockedUser: 	Can not add anything to the DB
+
+*/

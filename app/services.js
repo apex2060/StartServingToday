@@ -28,10 +28,7 @@ app.factory('userService', function ($rootScope, $http, $q, config) {
 				//Prompt for login
 			});
  		},
- 		loginModal:function(){
- 			$('#userLoginModal').modal('show');
- 		},
- 		login:function(user){
+ 		login:function(user, signup){
  			var login = {
  				username:user.username,
  				password:user.password
@@ -42,11 +39,32 @@ app.factory('userService', function ($rootScope, $http, $q, config) {
  				localStorage.user=angular.toJson(data);
  				$rootScope.user=data;
 				$rootScope.$broadcast('authenticated', data);
- 				$('#userLoginModal').modal('hide');
- 			}).error(function(data){
- 				console.error('error',data.error);
-				// $('#loading').removeClass('active');
+				if(!signup)
+				window.location.hash='#/dashboard/main';
+ 			}).error(function(error){
+ 				$rootScope.alert('error', error)
+ 				$rootScope.error = error;
 			});
+ 		},
+ 		signup:function(user){
+ 			if(user){
+	 			user.fullName = user.firstName + ' ' + user.lastName
+	 			if(user.password!=user.password2){
+	 				$rootScope.alert('error', 'Your passwords do not match.')
+	 			}else{
+	 				$rootScope.error = null;
+	 				delete user.password2;
+	 				$http.post(config.parseRoot+'users', user).success(function(data){
+	 					userService.login(user, true);
+	 					window.location.hash='#/main/welcome'
+	 				}).error(function(error){
+	 					$rootScope.alert('error', error)
+	 					$rootScope.error = error;
+	 				});
+	 			}
+	 		}else{
+	 			$rootScope.alert('error', 'Please enter your information.')
+	 		}
  		},
  		logout:function(){
  			localStorage.clear();
@@ -63,43 +81,120 @@ app.factory('userService', function ($rootScope, $http, $q, config) {
 
 
 
-app.factory('projectService', function ($rootScope, $http, $q, config) {
-	var projectList = [
-		{
-			title: "Help build a well in Africa.",
-			sponsor: "Power To Become",
-			src: "/assets/img/featured/wells.jpg",
-			objectId: "8fewa2"
-		},
-		{
-			title: "Helping Hands",
-			sponsor: "LDS",
-			src: "https://www.lds.org/bc/content/ldsorg/content/images/hs_whatchurchdoing_helpinghands.jpg",
-			objectId: "8few2a"
-		},
-		{
-			title: "Share your story with the world",
-			sponsor: "You",
-			src: "/assets/img/featured/helpers.jpg",
-			objectId: "82fewa"
-		},
-	]
+app.factory('projectService', function ($rootScope, $http, $q, config, fileService) {
+	var Project = Parse.Object.extend("Project");
 
-	var projectService = {
+	var PS = {
 		list:function(){
 			var deferred = $q.defer();
-			deferred.resolve(projectList);
+			if(localStorage.projectList){
+				deferred.resolve(angular.fromJson(localStorage.projectList));
+			}else{
+				PS.refresh().then(function(projectList){
+					deferred.resolve(projectList);
+				});
+			}
 			return deferred.promise;
+		},
+		refresh:function(){
+			var deferred = $q.defer();
+			$http.get(config.parseRoot+'classes/Project').success(function(data){
+				localStorage.setItem('projectList', angular.toJson(data.results));
+				deferred.resolve(data.results);
+			}).error(function(error){
+				console.log(error);
+			})
+			return deferred.promise;
+		},
+		
+		update:function(){
+			PS.refresh().then(function(projectList){
+				alert('updated')
+				console.log(projectList)
+				$rootScope.projects = projectList;
+			})	
 		},
 		get:function(objectId){
 			var deferred = $q.defer();
-			for(var i=0; i<projectList.length; i++)
-				if(projectList[i].objectId == objectId)
-					deferred.resolve(projectList[i]);
+			PS.list().then(function(projectList){
+				for(var i=0; i<projectList.length; i++)
+					if(projectList[i].objectId == objectId)
+						deferred.resolve(projectList[i]);
+			})
 			return  deferred.promise;
+		},
+		clear:function(){
+			$rootScope.temp.project = {};
+		},
+		submit:function(project){
+			if(project && project.objectId)
+				PS.save(project)
+			else
+				PS.create(project);
+		},
+		create:function(project){
+			$http.post(config.parseRoot+'classes/Project', project)
+			.success(function(result){
+				PS.clear();
+				PS.update();
+				$rootScope.alert('success', 'Project created')
+			}).error(function(error){
+				console.log(error)
+			})
+		},
+		edit:function(project){
+			$rootScope.temp.project = project;
+		},
+		save:function(project){
+			var toSave = angular.copy(project)
+			delete toSave.objectId;
+			delete toSave.createdAt;
+			
+			$http.put(config.parseRoot+'classes/Project/'+project.objectId, toSave)
+			.success(function(result){
+				PS.clear();
+				PS.update();
+				$rootScope.alert('success', 'Project saved')
+			}).error(function(error){
+				console.log(error)
+			})
+		},
+		delete:function(project){
+			if(confirm('Are you sure you want to delete this project?')){
+				$http.delete(config.parseRoot + 'classes/Project/' + project.objectId)
+					.success(function(result) {
+						PS.clear();
+						PS.update();
+						$rootScope.alert('success', 'Project deleted')
+					}).error(function(error) {
+						console.log(error)
+					})
+			}
+		},
+		toggleFeatured:function(project){
+			project.featured = !!!project.featured;
+		},
+		uploadPic:function(details, src){
+			if(!$rootScope.temp.project)
+				$rootScope.temp.project = {};
+			$rootScope.temp.project.pic = {
+				temp: true,
+				status: 'uploading',
+				class: 'grayscale',
+				name: 'Image Uploading...',
+				src: src
+			}
+
+			fileService.upload(details,src).then(function(data){
+				$rootScope.temp.project.pic = {
+					name: data.name(),
+					src: data.url()
+				}
+			});
 		}
 	}
-	return projectService;
+	
+	return PS;
 })
 
 

@@ -32,3 +32,21 @@ Style?
 Abilities?
 
 Language Support?
+
+
+
+
+
+
+
+
+
+
+
+Build a well in africa
+Sponsor A Rescue Mission
+Build a school in africa
+
+Dando Amor
+Support A Family (Kidney Transplant)
+Tell Your Own Story (Apply Here)

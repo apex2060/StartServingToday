@@ -2,6 +2,8 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 	$rootScope.rp = $routeParams;
 	$rootScope.config = config;
 
+	var Volunteer = Parse.Object.extend("Volunteer");
+
 	var rootTools = {
 		user: userService,
 		url:function(){
@@ -15,6 +17,7 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 		init:function(){
 			if(!$rootScope.temp){
 				$rootScope.alerts = [];
+				$rootScope.featureFilter = {featured:true};
 				$rootScope.temp = {
 					volunteer: {},
 				};
@@ -49,9 +52,33 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 					$rootScope.projects = projectList;
 				})
 			},
-			load:function(){
+			refresh:function(){
+				projectService.refresh().then(function(projectList){
+					$rootScope.projects = projectList;
+				})	
+			},
+			byId:function(){
 				projectService.get($routeParams.id).then(function(project){
 					$rootScope.temp.volunteer.project = project;
+				})
+			}
+		},
+		volunteer:{
+			signup:function(user){
+				user = angular.copy(user);
+				user.project = user.project.objectId;
+				var volunteer = new Volunteer();
+				volunteer.save(user, {
+					success:function(response){
+						$rootScope.alert('success', 'Thanks for your interest, we will contact you shortly!');
+						$rootScope.$apply();
+					},
+					error:function(e){
+						console.log(e);
+						it.e = e;
+						$rootScope.alert('error', e);
+						$rootScope.$apply();
+					}
 				})
 			}
 		}

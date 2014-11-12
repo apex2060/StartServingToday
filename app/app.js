@@ -1,9 +1,11 @@
 var it = {};
 
 var app = angular.module('StartServing', ['pascalprecht.translate','ngAnimate','ngResource','ngRoute','ngTouch']);
-app.config(function($routeProvider,$translateProvider,$controllerProvider) {
+app.config(function($routeProvider,$translateProvider,$controllerProvider,$provide) {
 	app.lazy = {
-		controller: $controllerProvider.register
+		controller: $controllerProvider.register,
+		factory: 	$provide.factory,
+		service: 	$provide.service,
 	};
 
 	function requires($q, module, view, id){
@@ -16,10 +18,12 @@ app.config(function($routeProvider,$translateProvider,$controllerProvider) {
 			includes.push('modules/'+module+'/ctrl')
 
 		//CAN ADD CUSTOM REQUIRES FOR VIEW... OR ANYTHING ELSE HERE.
-
-		require(includes, function () {
+		if(includes.length)
+			require(includes, function () {
+				deferred.resolve();
+			});
+		else
 			deferred.resolve();
-		});
 		return deferred.promise;
 	}
 
