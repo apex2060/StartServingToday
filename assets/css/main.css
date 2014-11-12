@@ -5,9 +5,9 @@ html,body{
 	margin: 0px;
 }
 body{
-	background-image: url('/assets/img/background/safari.jpg');
-	background-size: cover;
-	background-attachment: fixed;
+	/*background-image: url('/assets/img/background/safari.jpg');*/
+	/*background-size: cover;*/
+	/*background-attachment: fixed;*/
 }
 header{
 	position: fixed;
@@ -105,7 +105,12 @@ div.thumbnail{
 }
 
 
-
+.navbar{
+	background-image: url('http://www.unsigneddesign.com/Seamless_background_textures/thumbs/seamlesstexture1_1200.jpg');
+}
+.carousel img{
+	height:300px !important;
+}
 
 
 

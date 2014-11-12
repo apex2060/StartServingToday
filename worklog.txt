@@ -1,0 +1,22 @@
+Today I worked on roles and user permissions.
+I also made it possible to create new projects.
+
+ACL for Projects created by non-admin/editor users still need to be setup.
+[] The approval process for such projects still needs to be setup.
+
+[] The main page needs a banner-rotator
+[] The projects need a dedicated information page
+Date to be completed
+
+[] The learn more page (getting information) will be after the dedicated information page.
+[] ~ Resources
+[] > Eventually: Completed projects
+[] ! Notify me when the project becomes available. (subscription)
+
+>>Best way to present purpose<< Shoes, Packaged Service project, 
+>>Service Quotes & Resources<<
+
+
+
+
+>>Power2Become<< Transparency: How do we provide the best transparency report.

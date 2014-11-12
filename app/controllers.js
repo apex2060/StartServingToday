@@ -22,6 +22,7 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 					volunteer: {},
 				};
 				rootTools.projects.init();
+				rootTools.page.init();
 				
 				userService.user().then(function(){
 					//Do things than need to be done once the user is authenticated.
@@ -44,6 +45,25 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 				var alertIndex = $rootScope.alerts.indexOf(alert);
 				if(alertIndex != -1)
 					$rootScope.alerts.splice(alertIndex, 1);
+			}
+		},
+		page:{
+			init:function(){
+				$rootScope.banners = [
+					{
+						title: 'All Supplies Provided',
+						pic: {src: 'http://www.staples-3p.com/s7/is/image/Staples/s0659238_sc7?$splssku$'},
+						objectId: ''
+					},{
+						title: 'Quote From Holland',
+						pic: {src: 'https://www.lds.org/bc/content/shared/content/images/leaders/jeffrey-r-holland-large.jpg'},
+						objectId: ''
+					},{
+						title: 'Large-Impact Service',
+						pic: {src: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRGeC8Vl-r2mjUYxwPrvbtoIOk78_gRllbnxG0WirPhxZi2QvZT'},
+						objectId: ''
+					},
+				]
 			}
 		},
 		projects:{
