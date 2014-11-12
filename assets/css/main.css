@@ -108,6 +108,9 @@ div.thumbnail{
 .navbar{
 	background-image: url('http://www.unsigneddesign.com/Seamless_background_textures/thumbs/seamlesstexture1_1200.jpg');
 }
+.carousel{
+	margin-bottom:50px;
+}
 .carousel img{
 	height:300px !important;
 }

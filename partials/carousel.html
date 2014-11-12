@@ -7,6 +7,11 @@
 	<!-- Wrapper for slides -->
 	<div class="carousel-inner" role="listbox">
 		<div class="item" ng-class="{active:$first}" ng-repeat="banner in banners">
+			<!--<div class="jumbotron">-->
+			<!--	<h3>{{banner.title}}</h3>-->
+			<!--	<p>We provide you with the power to organize large-scale service projects.  If you are organizing a service project for a large youth group - you are in the right place.</p>-->
+			<!--</div>-->
+			
 			<h1>{{banner.title}}</h1>
 			<img ng-src="{{banner.pic.src}}" alt="Image depicting: {{banner.title}}">
 			<div class="carousel-caption">

@@ -79,7 +79,7 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 			},
 			byId:function(){
 				projectService.get($routeParams.id).then(function(project){
-					$rootScope.temp.volunteer.project = project;
+					$rootScope.temp.project = project;
 				})
 			}
 		},

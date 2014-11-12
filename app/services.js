@@ -109,10 +109,8 @@ app.factory('projectService', function ($rootScope, $http, $q, config, fileServi
 		
 		update:function(){
 			PS.refresh().then(function(projectList){
-				alert('updated')
-				console.log(projectList)
 				$rootScope.projects = projectList;
-			})	
+			})
 		},
 		get:function(objectId){
 			var deferred = $q.defer();
