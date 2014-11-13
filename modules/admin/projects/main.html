@@ -9,6 +9,7 @@
 					<i class="fa pull-right fa-heart" ng-show="project.featured" ng-click="tools.toggleFeatured(project)"></i>
 					<i class="fa pull-right fa-heart-o" ng-hide="project.featured" ng-click="tools.toggleFeatured(project)"></i>
 				</li>
+				<li class="list-group-item" ng-click="tools.clear()">Add A Project</li>
 			</ul>
 		</div>
 		<div class="col-md-6">
@@ -57,7 +58,7 @@
 				<div class="col-sm-offset-2 col-sm-10">
 					<div class="checkbox">
 						<label>
-							<input type="checkbox"> Feature Project
+							<input type="checkbox" ng-model="temp.project.featured"> Feature Project
 						</label>
 					</div>
 				</div>

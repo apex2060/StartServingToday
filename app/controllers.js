@@ -70,16 +70,17 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 			init:function(){
 				projectService.list().then(function(projectList){
 					$rootScope.projects = projectList;
+					$rootScope.featured = projectList.matrix(3);
 				})
-			},
-			refresh:function(){
-				projectService.refresh().then(function(projectList){
-					$rootScope.projects = projectList;
-				})	
 			},
 			byId:function(){
 				projectService.get($routeParams.id).then(function(project){
 					$rootScope.temp.project = project;
+				})
+			},
+			volunteer:function(){
+				projectService.get($routeParams.id).then(function(project){
+					$rootScope.temp.volunteer = {project:project};
 				})
 			}
 		},

@@ -86,15 +86,16 @@ app.factory('projectService', function ($rootScope, $http, $q, config, fileServi
 
 	var PS = {
 		list:function(){
-			var deferred = $q.defer();
-			if(localStorage.projectList){
-				deferred.resolve(angular.fromJson(localStorage.projectList));
-			}else{
-				PS.refresh().then(function(projectList){
-					deferred.resolve(projectList);
-				});
-			}
-			return deferred.promise;
+			// var deferred = $q.defer();
+			// if(localStorage.projectList){
+			// 	deferred.resolve(angular.fromJson(localStorage.projectList));
+			// }else{
+			// 	PS.refresh().then(function(projectList){
+			// 		deferred.resolve(projectList);
+			// 	});
+			// }
+			// return deferred.promise;
+			return PS.refresh();
 		},
 		refresh:function(){
 			var deferred = $q.defer();
@@ -171,6 +172,7 @@ app.factory('projectService', function ($rootScope, $http, $q, config, fileServi
 		},
 		toggleFeatured:function(project){
 			project.featured = !!!project.featured;
+			PS.save(project);
 		},
 		uploadPic:function(details, src){
 			if(!$rootScope.temp.project)

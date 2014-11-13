@@ -24,3 +24,17 @@ Array.prototype.find = function(key, value){
 			return this[i];
 	}
 }
+
+Array.prototype.matrix = function(size){
+	var arr = this;
+	var arr = [[]];
+	var pos = 0;
+	for (var i=0; i<this.length; i++) {
+		if(this[i].featured)
+			arr[pos].push(this[i])
+		
+		if(arr[pos].length==size)
+			arr[++pos]=[];
+	}
+	return arr;
+}
