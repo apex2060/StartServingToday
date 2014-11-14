@@ -21,8 +21,11 @@ var StoryCtrl = app.lazy.controller('StoryCtrl', function($rootScope, $scope, $r
 			like:function(story){
 				var storyId = story.objectId;
 				FB.ui({
-					method: 'share',
-					href: 'http://startserving.today/stories/story/'+storyId
+					method: 'share_open_graph',
+					action_type: 'og.likes',
+					action_properties: JSON.stringify({
+						object: 'http://startserving.today/stories/story/'+storyId
+					})
 				}, function(response) {});
 			}
 		}
