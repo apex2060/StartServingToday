@@ -16,6 +16,15 @@ var StoryCtrl = app.lazy.controller('StoryCtrl', function($rootScope, $scope, $r
 			storyService.get($routeParams.id).then(function(story){
 				$rootScope.temp.volunteer = {story:story};
 			})
+		},
+		fb:{
+			like:function(story){
+				var storyId = story.objectId;
+				FB.ui({
+					method: 'share',
+					href: 'http://startserving.today/stories/story/'+storyId
+				}, function(response) {});
+			}
 		}
 	}
 	

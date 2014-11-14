@@ -8,6 +8,8 @@
 			<div class="col-md-8">
 				<h4>{{temp.story.org}}</h4>
 				<p>{{temp.story.description}}</p>
+				
+				<a ng-click="tools.fb.like(temp.story)" class="btn btn-primary">Share On Facebook</a>
 				<a href="#/stories/signup/{{temp.story.objectId}}" class="btn btn-primary pull-right">Learn More</a>
 			</div>
 		</div>

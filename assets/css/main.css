@@ -5,9 +5,7 @@ html,body{
 	margin: 0px;
 }
 body{
-	/*background-image: url('/assets/img/background/safari.jpg');*/
-	/*background-size: cover;*/
-	/*background-attachment: fixed;*/
+	background: #DDD;
 }
 header{
 	position: fixed;
@@ -30,12 +28,6 @@ h1,h2,h3{
 #alerts .alert{
 	box-shadow: -5px -5px 5px #000;
 }
-.page .well{
-	box-shadow: 5px 5px 5px #333;
-}
-.page .well>h3{
-	height: 2em;
-}
 .page>h1{
 	text-align: left;
 	width: 400px;
@@ -46,17 +38,30 @@ h1,h2,h3{
 	font-size: 34px;
 	color: #fff;
 }
+.card .well{
+	color: #FFF;
+	box-shadow: 5px 5px 5px #333;
+}
+.card .well h3{
+	height: 2em;
+}
+.card .imgBox{
+	height:200px;
+	overflow:hidden;
+}
+.ribbon{
+	right: 16px;
+}
+
+
+
+/*This is for the upload a picture box.*/
 div.thumbnail{
 	width:100%;
 	height:100px;
 	text-align:center;
 	background: #EEE;
 }
-
-
-
-
-
 
 
 
@@ -106,15 +111,50 @@ div.thumbnail{
 
 
 .navbar{
-	background-image: url('http://www.unsigneddesign.com/Seamless_background_textures/thumbs/seamlesstexture1_1200.jpg');
+	background: #115793;
+	background-image: url('/assets/img/background/texture.png'), rgb(44,37,58); /* Old browsers */
+	background-image: url('/assets/img/background/texture.png'), -moz-linear-gradient(-45deg,  rgba(44,37,58,1) 0%, rgba(17,87,147,1) 48%, rgba(32,33,48,1) 100%); /* FF3.6+ */
+	background-image: url('/assets/img/background/texture.png'), -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(44,37,58,1)), color-stop(48%,rgba(17,87,147,1)), color-stop(100%,rgba(32,33,48,1))); /* Chrome,Safari4+ */
+	background-image: url('/assets/img/background/texture.png'), -webkit-linear-gradient(-45deg,  rgba(44,37,58,1) 0%,rgba(17,87,147,1) 48%,rgba(32,33,48,1) 100%); /* Chrome10+,Safari5.1+ */
+	background-image: url('/assets/img/background/texture.png'), -o-linear-gradient(-45deg,  rgba(44,37,58,1) 0%,rgba(17,87,147,1) 48%,rgba(32,33,48,1) 100%); /* Opera 11.10+ */
+	background-image: url('/assets/img/background/texture.png'), -ms-linear-gradient(-45deg,  rgba(44,37,58,1) 0%,rgba(17,87,147,1) 48%,rgba(32,33,48,1) 100%); /* IE10+ */
+	background-image: url('/assets/img/background/texture.png'), linear-gradient(135deg,  rgba(44,37,58,1) 0%,rgba(17,87,147,1) 48%,rgba(32,33,48,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2c253a', endColorstr='#202130',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+	border-radius: 0px;
+	color: #FFF;
 }
+#startServing .navbar *{
+	color: #FFF;
+}
+.navbar .dropdown-menu{
+	background: #115793;
+}
+.navbar .dropdown-menu{
+	background: #115793;
+}
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus{
+	background:#333;
+}
+.navbar .dropdown-menu li a:hover{
+	background: #063572;
+}
+
+[ng-click]{
+	cursor: pointer;
+}
+
+#startServing a:hover{
+	text-decoration: none;
+}
+
+
 .carousel{
 	margin-bottom:50px;
 }
 .carousel img{
 	height:300px !important;
 }
-
 
 
 /* RESPONSIVE */

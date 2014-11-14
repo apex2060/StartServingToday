@@ -18,17 +18,41 @@
 	<link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css" 		rel="stylesheet" media="screen">
 
 	<!-- INTERNAL CSS -->
+	<link href="assets/css/ribbons.css" 	rel="stylesheet" media="screen">
 	<link href="assets/css/main.css" 		rel="stylesheet" media="screen">
 	<link href="assets/css/animate.css" 	rel="stylesheet" media="screen">
 	<link href="assets/css/print.css" 		rel="stylesheet" media="print">
 </head>
-<body ng-controller="MainCtrl" ng-swipe-left="tools.side.swipe('left')"  ng-swipe-right="tools.side.swipe('right')">
 
+<body id="startServing" ng-controller="MainCtrl" ng-swipe-left="tools.side.swipe('left')"  ng-swipe-right="tools.side.swipe('right')">
 	<header ng-include="'partials/header.html'"></header>
 	<section class="view {{status}}" id="{{view}}" ng-view></section>
 	<footer ng-include="'partials/footer.html'"></footer>
 	<div ng-include="'partials/user/loginModal.html'"></div>
 
+
+	<!-- FACEBOOK SCRIPT -->
+	<script >
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId: '377392559106123',
+				xfbml: true,
+				version: 'v2.2'
+			});
+		};
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {
+				return;
+			}
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "//connect.facebook.net/en_US/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk')); 
+	</script>
+	
+	
 	<!-- GOOGLE ANALYTICS -->
 	<script></script>
 

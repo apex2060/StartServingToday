@@ -11,12 +11,21 @@
 	<!--<h1>The importance of one... <br>The power of many!</h1>-->
 	<div class="row" ng-repeat="row in featured">
 		<div class="card" ng-class="layout.col" ng-repeat="story in row">
-				<div class="well">
+			<div class="well">
+				<a href="#/stories/story/{{story.objectId}}">
+					<div class="ribbon" ng-class="'ribbon-'+story.tag.color" ng-show="story.tag">
+						<div class="banner">
+							<div class="text">{{story.tag.text}}</div>
+						</div>
+					</div>
 					<h3>{{story.title}}</h3>
-					<img ng-src="{{story.pic.src}}" class="img-responsive thumbnail" alt="Image depicting: {{story.title}}">
-					<p>{{story.description}}</p>
-			<a href="#/stories/story/{{story.objectId}}" class="btn btn-block btn-info">Learn More</a>
-				</div>
+					<div class="imgBox">
+						<img ng-src="{{story.pic.src}}" class="img-responsive thumbnail" alt="Image depicting: {{story.title}}">
+					</div>
+				</a>
+				<!--<p>{{story.description}}</p>-->
+				<!--<a href="#/stories/story/{{story.objectId}}" class="btn btn-block btn-info">Learn More</a>-->
+			</div>
 		</div>
 	</div>
 </div>

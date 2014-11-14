@@ -1,6 +1,10 @@
 var AdminStory = app.lazy.controller('AdminStory', function($rootScope, $scope, $http, $q, config, storyService){
 	
-	$scope.tools = storyService;
+	var tools = {
+		
+	}
+	
+	$scope.tools = angular.extend(tools, storyService);
 	it.AdminStory=$scope;
 	
 });
