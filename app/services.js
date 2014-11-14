@@ -81,17 +81,17 @@ app.factory('userService', function ($rootScope, $http, $q, config) {
 
 
 
-app.factory('projectService', function ($rootScope, $http, $q, config, fileService) {
-	var Project = Parse.Object.extend("Project");
+app.factory('storyService', function ($rootScope, $http, $q, config, fileService) {
+	var Story = Parse.Object.extend("Story");
 
 	var PS = {
 		list:function(){
 			// var deferred = $q.defer();
-			// if(localStorage.projectList){
-			// 	deferred.resolve(angular.fromJson(localStorage.projectList));
+			// if(localStorage.storyList){
+			// 	deferred.resolve(angular.fromJson(localStorage.storyList));
 			// }else{
-			// 	PS.refresh().then(function(projectList){
-			// 		deferred.resolve(projectList);
+			// 	PS.refresh().then(function(storyList){
+			// 		deferred.resolve(storyList);
 			// 	});
 			// }
 			// return deferred.promise;
@@ -99,8 +99,8 @@ app.factory('projectService', function ($rootScope, $http, $q, config, fileServi
 		},
 		refresh:function(){
 			var deferred = $q.defer();
-			$http.get(config.parseRoot+'classes/Project').success(function(data){
-				localStorage.setItem('projectList', angular.toJson(data.results));
+			$http.get(config.parseRoot+'classes/Story').success(function(data){
+				localStorage.setItem('storyList', angular.toJson(data.results));
 				deferred.resolve(data.results);
 			}).error(function(error){
 				console.log(error);
@@ -109,75 +109,79 @@ app.factory('projectService', function ($rootScope, $http, $q, config, fileServi
 		},
 		
 		update:function(){
-			PS.refresh().then(function(projectList){
-				$rootScope.projects = projectList;
+			PS.refresh().then(function(storyList){
+				$rootScope.stories = storyList;
 			})
 		},
 		get:function(objectId){
 			var deferred = $q.defer();
-			PS.list().then(function(projectList){
-				for(var i=0; i<projectList.length; i++)
-					if(projectList[i].objectId == objectId)
-						deferred.resolve(projectList[i]);
+			PS.list().then(function(storyList){
+				for(var i=0; i<storyList.length; i++)
+					if(storyList[i].objectId == objectId)
+						deferred.resolve(storyList[i]);
 			})
 			return  deferred.promise;
 		},
 		clear:function(){
-			$rootScope.temp.project = {};
+			$rootScope.temp.story = {};
 		},
-		submit:function(project){
-			if(project && project.objectId)
-				PS.save(project)
+		submit:function(story){
+			if(story && story.objectId)
+				PS.save(story)
 			else
-				PS.create(project);
+				PS.create(story);
 		},
-		create:function(project){
-			$http.post(config.parseRoot+'classes/Project', project)
+		create:function(story){
+			$http.post(config.parseRoot+'classes/Story', story)
 			.success(function(result){
 				PS.clear();
 				PS.update();
-				$rootScope.alert('success', 'Project created')
+				$rootScope.alert('success', 'Story created')
 			}).error(function(error){
 				console.log(error)
 			})
 		},
-		edit:function(project){
-			$rootScope.temp.project = project;
+		edit:function(story){
+			$rootScope.temp.story = story;
 		},
-		save:function(project){
-			var toSave = angular.copy(project)
+		save:function(story){
+			var toSave = angular.copy(story)
 			delete toSave.objectId;
 			delete toSave.createdAt;
 			
-			$http.put(config.parseRoot+'classes/Project/'+project.objectId, toSave)
+			$http.put(config.parseRoot+'classes/Story/'+story.objectId, toSave)
 			.success(function(result){
 				PS.clear();
 				PS.update();
-				$rootScope.alert('success', 'Project saved')
+				$rootScope.alert('success', 'Story saved')
 			}).error(function(error){
 				console.log(error)
 			})
 		},
-		delete:function(project){
-			if(confirm('Are you sure you want to delete this project?')){
-				$http.delete(config.parseRoot + 'classes/Project/' + project.objectId)
+		delete:function(story){
+			if(confirm('Are you sure you want to delete this story?')){
+				$http.delete(config.parseRoot + 'classes/Story/' + story.objectId)
 					.success(function(result) {
 						PS.clear();
 						PS.update();
-						$rootScope.alert('success', 'Project deleted')
+						$rootScope.alert('success', 'Story deleted')
 					}).error(function(error) {
 						console.log(error)
 					})
 			}
 		},
-		toggleFeatured:function(project){
-			project.featured = !!!project.featured;
-			PS.save(project);
+		toggleFeatured:function(story){
+			story.featured = !!!story.featured;
+			PS.save(story);
+		},
+		toggleApproved:function(story){
+			story.approved = !!!story.approved;
+			PS.save(story);
 		},
 		uploadPic:function(details, src){
-			if(!$rootScope.temp.project)
-				$rootScope.temp.project = {};
-			$rootScope.temp.project.pic = {
+			if(!$rootScope.temp.story)
+				$rootScope.temp.story = {};
+			$rootScope.temp.story.pic = {
 				temp: true,
 				status: 'uploading',
 				class: 'grayscale',
@@ -186,7 +190,7 @@ app.factory('projectService', function ($rootScope, $http, $q, config, fileServi
 			}
 
 			fileService.upload(details,src).then(function(data){
-				$rootScope.temp.project.pic = {
+				$rootScope.temp.story.pic = {
 					name: data.name(),
 					src: data.url()
 				}

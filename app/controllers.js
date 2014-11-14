@@ -1,4 +1,4 @@
-var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routeParams, config, userService, projectService){
+var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routeParams, config, userService, storyService){
 	$rootScope.rp = $routeParams;
 	$rootScope.config = config;
 
@@ -7,12 +7,16 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 	var rootTools = {
 		user: userService,
 		url:function(){
-			if(!$routeParams.module)
-				return 'views/'+$routeParams.view+'.html';
-			else if(!$routeParams.view)
-				return 'modules/'+$routeParams.module+'/main.html';
+
+			if($routeParams.module == 'admin')
+				if($routeParams.view)
+					return 'modules/admin/'+$routeParams.view+'/main.html';
+				else
+					return 'views/404.html';
+			else if($routeParams.module && $routeParams.view)
+				return 'modules/'+$routeParams.module+'/'+$routeParams.view+'.html';
 			else
-				return 'modules/'+$routeParams.module+'/'+$routeParams.view+'/main.html';
+				return 'views/'+$routeParams.view+'.html';
 		},
 		init:function(){
 			if(!$rootScope.temp){
@@ -21,7 +25,7 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 				$rootScope.temp = {
 					volunteer: {},
 				};
-				rootTools.projects.init();
+				rootTools.stories.init();
 				rootTools.page.init();
 				
 				userService.user().then(function(){
@@ -49,6 +53,7 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 		},
 		page:{
 			init:function(){
+				rootTools.page.layout();
 				$rootScope.banners = [
 					{
 						title: 'All Supplies Provided',
@@ -64,30 +69,47 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 						objectId: ''
 					},
 				]
+			},
+			layout:function(){
+				var col = [4,3,6];
+				var rev = [3,4,2];
+				function nextIndex(){
+					var i = rev.indexOf(L.matrix);
+					console.log(i)
+					if(i==(rev.length-1))
+						return 0;
+					else
+						return ++i;
+				}
+				var L = $rootScope.layout;
+				if(!L)
+					L = {
+						col: 	'col-md-'+col[0],
+						matrix: 	rev[0],
+					}
+				else
+					L = {
+						col: 'col-md-'+col[nextIndex()],
+						matrix: rev[nextIndex()],
+					}
+				storyService.list().then(function(storyList){
+					var featured = storyList.filter('featured');
+					$rootScope.featured = featured.matrix(L.matrix);
+					$rootScope.layout = L;
+				})
 			}
 		},
-		projects:{
+		stories:{
 			init:function(){
-				projectService.list().then(function(projectList){
-					$rootScope.projects = projectList;
-					$rootScope.featured = projectList.matrix(3);
-				})
-			},
-			byId:function(){
-				projectService.get($routeParams.id).then(function(project){
-					$rootScope.temp.project = project;
-				})
-			},
-			volunteer:function(){
-				projectService.get($routeParams.id).then(function(project){
-					$rootScope.temp.volunteer = {project:project};
+				storyService.list().then(function(storyList){
+					$rootScope.stories = storyList;
 				})
 			}
 		},
 		volunteer:{
 			signup:function(user){
 				user = angular.copy(user);
-				user.project = user.project.objectId;
+				user.story = user.story.objectId;
 				var volunteer = new Volunteer();
 				volunteer.save(user, {
 					success:function(response){

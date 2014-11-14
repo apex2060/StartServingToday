@@ -17,11 +17,33 @@ https://github.com/apex2060/StartServingToday
 --------
 Purpose:
 --------
+BOLD BUT NOT OVERBEARING
+Allow people to post stories (which we approve) and get a sponsor to organize a project around the need.
+Allow people to sponsor a story and organize a project.
+Provide organization and resources to pertinant individuals.
 
 
 ---------
 Features:
 ---------
+"There are many ways you can get involved!"
+- If you know of people who are in need, please share their story with us.
+- We make 
+- 
+
+
+
+
+---------------------
+Service Requirements:
+---------------------
+- Eagle Project
+- Young Womens Project
+- Youth Project
+	- Large youth groups (stake, multi-stake...)
+	- Mutual
+- Individual wanting to serve
+- 
 
 ----------
 Questions:

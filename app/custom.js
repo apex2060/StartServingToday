@@ -25,14 +25,19 @@ Array.prototype.find = function(key, value){
 	}
 }
 
+Array.prototype.filter = function(boolAttr){
+	var arr = [];
+	for (var i=0; i<this.length; i++)
+		if(this[i][boolAttr])
+			arr.push(this[i])
+	return arr;
+}
+
 Array.prototype.matrix = function(size){
-	var arr = this;
 	var arr = [[]];
 	var pos = 0;
 	for (var i=0; i<this.length; i++) {
-		if(this[i].featured)
-			arr[pos].push(this[i])
-		
+		arr[pos].push(this[i])
 		if(arr[pos].length==size)
 			arr[++pos]=[];
 	}

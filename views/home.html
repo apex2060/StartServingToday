@@ -3,19 +3,19 @@
 	<!--	<div class="col-md-12">-->
 	<!--		<div class="jumbotron">-->
 	<!--			<h3>MAKE AN IMPACT</h3>-->
-	<!--			<p>We provide you with the power to organize large-scale service projects.  If you are organizing a service project for a large youth group - you are in the right place.</p>-->
+	<!--			<p>We provide you with the power to organize large-scale service projects.  If you are organizing a service story for a large youth group - you are in the right place.</p>-->
 	<!--		</div>-->
 	<!--	</div>-->
 	<!--</div>-->
 	<div ng-include="'/partials/carousel.html'"></div>
 	<!--<h1>The importance of one... <br>The power of many!</h1>-->
 	<div class="row" ng-repeat="row in featured">
-		<div class="col-md-4 card" ng-repeat="project in row">
+		<div class="card" ng-class="layout.col" ng-repeat="story in row">
 				<div class="well">
-					<h3>{{project.title}}</h3>
-					<img ng-src="{{project.pic.src}}" class="img-responsive thumbnail" alt="Image depicting: {{project.title}}">
-					<p>{{project.description}}</p>
-			<a href="#/main/project/{{project.objectId}}" class="btn btn-block btn-info">Learn More</a>
+					<h3>{{story.title}}</h3>
+					<img ng-src="{{story.pic.src}}" class="img-responsive thumbnail" alt="Image depicting: {{story.title}}">
+					<p>{{story.description}}</p>
+			<a href="#/stories/story/{{story.objectId}}" class="btn btn-block btn-info">Learn More</a>
 				</div>
 		</div>
 	</div>

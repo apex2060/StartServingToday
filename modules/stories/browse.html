@@ -1,0 +1,13 @@
+<div class="container" ng-controller="StoryCtrl" ng-init="tools.init(4)">
+	<h1>We Need Your Help</h1>
+	<div class="row" ng-repeat="row in approved">
+		<div class="card col-md-3" ng-repeat="story in row">
+			<div class="well">
+				<h3>{{story.title}}</h3>
+				<img ng-src="{{story.pic.src}}" class="img-responsive thumbnail" alt="Image depicting: {{story.title}}">
+				<p>{{story.description}}</p>
+				<a href="#/stories/story/{{story.objectId}}" class="btn btn-block btn-info">Learn More</a>
+			</div>
+		</div>
+	</div>
+</div>
