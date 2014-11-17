@@ -59,7 +59,18 @@
 			<div class="form-group">
 				<label for="storyTag" class="col-sm-2 control-label">Ribbon</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="storyTagColor" placeholder="Color" ng-model="temp.story.tag.color">
+					<select class="form-control" id="storyTagColor" placeholder="Color" ng-model="temp.story.tag.color">
+						<option value="red">Red</option>
+						<option value="orange">Orange</option>
+						<option value="yellow">Yellow</option>
+						<option value="green">Green</option>
+						<option value="blue-light">Light Blue</option>
+						<option value="blue">Blue</option>
+						<option value="blue-mms">Dark Blue</option>
+						<option value="purple">Purple</option>
+						<option value="pink">Pink</option>
+						<option value="black">Black</option>
+					</select>
 					<input type="text" class="form-control" id="storyTagText" placeholder="Text" ng-model="temp.story.tag.text">
 				</div>
 			</div>

@@ -1,4 +1,4 @@
-var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routeParams, config, userService, storyService){
+var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routeParams, $location, config, userService, storyService){
 	$rootScope.rp = $routeParams;
 	$rootScope.config = config;
 
@@ -7,7 +7,6 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 	var rootTools = {
 		user: userService,
 		url:function(){
-
 			if($routeParams.module == 'admin')
 				if($routeParams.view)
 					return 'modules/admin/'+$routeParams.view+'/main.html';
@@ -107,13 +106,15 @@ var MainCtrl = app.controller('MainCtrl', function($rootScope, $scope, $routePar
 			}
 		},
 		volunteer:{
-			signup:function(user){
-				user = angular.copy(user);
-				user.story = user.story.objectId;
+			signup:function(data){
+				data = angular.copy(data);
+				if(data.story)
+					data.story = data.story.objectId;
 				var volunteer = new Volunteer();
-				volunteer.save(user, {
+				volunteer.save(data, {
 					success:function(response){
 						$rootScope.alert('success', 'Thanks for your interest, we will contact you shortly!');
+						$location.path('stories/thanks/'+data.story)
 						$rootScope.$apply();
 					},
 					error:function(e){

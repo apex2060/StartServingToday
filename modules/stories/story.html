@@ -9,7 +9,10 @@
 				<h4>{{temp.story.org}}</h4>
 				<p>{{temp.story.description}}</p>
 				
-				<a ng-click="tools.fb.like(temp.story)" class="btn btn-primary">Share On Facebook</a>
+				<div fb-like="tools.social.fb(temp.story)"></div>
+				<div google-plus></div>
+				<div tweet="tools.social.twt(temp.story)"></div>
+				<div pin-it="tools.social.pin(temp.story).name" pin-it-image="tools.social.twt(temp.story).src"></div>
 				<a href="#/stories/signup/{{temp.story.objectId}}" class="btn btn-primary pull-right">Learn More</a>
 			</div>
 		</div>

@@ -31,6 +31,10 @@
 						<li><a href="#/user/account">Profile</a></li>
 						<li><a href="#/user/contributions">My Contributions</a></li>
 						<li><a href="#/user/stories">My Stories</a></li>
+						<li role="presentation" class="divider" ng-show="rootTools.user.is('Admin')"></li>
+						<li><a href="#/admin/setup" ng-show="rootTools.user.is('Admin')">Users &amp; Rolds</a></li>
+						<li><a href="#/admin/stories" ng-show="rootTools.user.is('Admin')">Manage Stories</a></li>
+						<li role="presentation" class="divider"></li>
 						<li><a ng-click="rootTools.user.logout()">Logout</a></li>
 					</ul>
 				</li>

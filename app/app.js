@@ -1,6 +1,6 @@
 var it = {};
 
-var app = angular.module('StartServing', ['pascalprecht.translate','ngAnimate','ngResource','ngRoute','ngTouch']);
+var app = angular.module('StartServing', ['pascalprecht.translate','ngAnimate','ngResource','ngRoute','ngTouch','angulike']);
 app.config(function($routeProvider,$translateProvider,$controllerProvider,$provide) {
 	app.lazy = {
 		controller: $controllerProvider.register,

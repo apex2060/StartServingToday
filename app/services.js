@@ -22,8 +22,12 @@ app.factory('userService', function ($rootScope, $http, $q, config) {
  				//Add a weird hack because /me does not return all information stored in the user object.
  				$http.get(config.parseRoot+'users/'+data.objectId).success(function(data){
  					$rootScope.user=data;
-	 				$rootScope.$broadcast('authenticated', data);
  				});
+ 				userService.getRoles(data).then(function(roles){
+ 					data.roles = roles;
+	 				$rootScope.user=data;
+	 				$rootScope.$broadcast('authenticated', data);
+ 				})
  			}).error(function(){
 				//Prompt for login
 			});
@@ -38,9 +42,13 @@ app.factory('userService', function ($rootScope, $http, $q, config) {
  				$http.defaults.headers.common['X-Parse-Session-Token'] = data.sessionToken;
  				localStorage.user=angular.toJson(data);
  				$rootScope.user=data;
-				$rootScope.$broadcast('authenticated', data);
+ 				userService.getRoles(data).then(function(roles){
+ 					data.roles = roles;
+	 				$rootScope.user=data;
+	 				$rootScope.$broadcast('authenticated', data);
+ 				})
 				if(!signup)
-				window.location.hash='#/dashboard/main';
+					window.location.hash='#/home';
  			}).error(function(error){
  				$rootScope.alert('error', error)
  				$rootScope.error = error;
@@ -56,7 +64,7 @@ app.factory('userService', function ($rootScope, $http, $q, config) {
 	 				delete user.password2;
 	 				$http.post(config.parseRoot+'users', user).success(function(data){
 	 					userService.login(user, true);
-	 					window.location.hash='#/main/welcome'
+	 					window.location.hash='#/welcome'
 	 				}).error(function(error){
 	 					$rootScope.alert('error', error)
 	 					$rootScope.error = error;
@@ -66,6 +74,23 @@ app.factory('userService', function ($rootScope, $http, $q, config) {
 	 			$rootScope.alert('error', 'Please enter your information.')
 	 		}
  		},
+ 		getRoles:function(user){
+			var deferred = $q.defer();
+			var roleQry = 'where={"users":{"__type":"Pointer","className":"_User","objectId":"'+user.objectId+'"}}'
+			$http.get(config.parseRoot+'classes/_Role?'+roleQry).success(function(data){
+				deferred.resolve(data.results);
+			}).error(function(data){
+				deferred.reject(data);
+			});
+			return deferred.promise;
+		},
+		is:function(roleName){
+			if($rootScope.user && $rootScope.user.roles)
+				for(var i=0; i<$rootScope.user.roles.length; i++)
+					if($rootScope.user.roles[i].name==roleName)
+						return true;
+			return false;
+		},
  		logout:function(){
  			localStorage.clear();
  			$rootScope.user=null;
@@ -256,7 +281,7 @@ app.factory('storyService', function ($rootScope, $http, $q, config, fileService
 
 app.factory('fileService', function ($http, $q, config) {
 	var fileService = {
-		upload:function(details,b64,successCallback,errorCallback){
+		upload:function(details,b64){
 			var deferred = $q.defer();
 			var file = new Parse.File(details.name, { base64: b64});
 			file.save().then(function(data) {

@@ -17,16 +17,21 @@ var StoryCtrl = app.lazy.controller('StoryCtrl', function($rootScope, $scope, $r
 				$rootScope.temp.volunteer = {story:story};
 			})
 		},
-		fb:{
-			like:function(story){
-				var storyId = story.objectId;
-				FB.ui({
-					method: 'share_open_graph',
-					action_type: 'og.likes',
-					action_properties: JSON.stringify({
-						object: 'http://startserving.today/stories/story/'+storyId
-					})
-				}, function(response) {});
+		social:{
+			fb:function(story){
+				if(story)
+					return 'startserving.today/stories/story/'+story.objectId;
+			},
+			twt:function(story){
+				if(story)
+					return 'Who wants to help!?'
+			},
+			pin:function(story){
+				if(story)
+					return {
+						name: story.title,
+						src: story.pic.src
+					}
 			}
 		}
 	}

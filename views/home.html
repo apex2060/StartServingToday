@@ -7,11 +7,9 @@
 	<!--		</div>-->
 	<!--	</div>-->
 	<!--</div>-->
-	<div ng-include="'/partials/carousel.html'"></div>
-	<!--<h1>The importance of one... <br>The power of many!</h1>-->
 	<div class="row" ng-repeat="row in featured">
 		<div class="card" ng-class="layout.col" ng-repeat="story in row">
-			<div class="well">
+			<div class="well" title="Touch A Life">
 				<a href="#/stories/story/{{story.objectId}}">
 					<div class="ribbon" ng-class="'ribbon-'+story.tag.color" ng-show="story.tag">
 						<div class="banner">
@@ -28,4 +26,6 @@
 			</div>
 		</div>
 	</div>
+	<!--<h1>The importance of one... <br>The power of many!</h1>-->
+	<div ng-include="'/partials/carousel.html'"></div>
 </div>
